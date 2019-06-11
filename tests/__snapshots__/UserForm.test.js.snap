@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Automated Generated Tests With custom props tests the "Click1!" button click 1`] = `
+Object {
+  "archived": false,
+  "count": 0,
+  "currentUser": Object {},
+  "email": "josh.carter@test.co",
+  "firstName": "Josh",
+  "formInitialized": true,
+  "hobby": "",
+  "id": 1,
+  "lastName": "Carter",
+  "termsAndConditions": false,
+  "test": "test",
+}
+`;
