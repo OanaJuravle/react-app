@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: path.resolve(__dirname, "src"),
+  entry: path.resolve(__dirname, "./src"),
   mode: "development",
   module: {
     rules: [
