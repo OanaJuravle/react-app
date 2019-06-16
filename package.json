@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "generate-tests": "react-unit-test-generator --config=test-generator.config.js",
     "start": "webpack-dev-server --mode development",
     "test": "jest --verbose=true --coverage --config=jest.config.json"
   },
@@ -28,6 +29,7 @@
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.8.0",
+    "link-module-alias": "^1.2.0",
     "node-sass": "^4.12.0",
     "npx": "^10.2.0",
     "path": "^0.12.7",
@@ -46,6 +48,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-router-redux": "^4.0.8",
+    "react-unit-test-generator": "^1.0.5",
     "redux": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.1"
