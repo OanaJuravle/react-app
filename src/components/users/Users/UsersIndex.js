@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Button, Grid, Input, Table } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Button, Grid, Input, Table } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { generateTests } from "react-unit-test-generator";
 
 class UsersIndex extends Component {
   renderTable() {
@@ -19,12 +20,15 @@ class UsersIndex extends Component {
           {this.props.users.map(user => (
             <Table.Row key={user.id}>
               <Table.Cell>
-                <Link data-testid={`redirect-to-${user.id}`} to={`users/${user.id}`}>
-                  {user.firstName.concat(' ').concat(user.lastName)}
+                <Link
+                  data-testid={`redirect-to-${user.id}`}
+                  to={`users/${user.id}`}
+                >
+                  {user.firstName.concat(" ").concat(user.lastName)}
                 </Link>
               </Table.Cell>
               <Table.Cell>{user.email}</Table.Cell>
-              <Table.Cell>{user.archived ? 'Enabled' : 'Disabled'}</Table.Cell>
+              <Table.Cell>{user.archived ? "Enabled" : "Disabled"}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -32,6 +36,7 @@ class UsersIndex extends Component {
     );
   }
   render() {
+    generateTests();
     return (
       <div>
         <h3>Users</h3>
@@ -66,33 +71,33 @@ UsersIndex.propTypes = {
       email: PropTypes.string.isRequired,
       firstName: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
-      lastName: PropTypes.string.isRequired,
-    }),
-  ),
+      lastName: PropTypes.string.isRequired
+    })
+  )
 };
 
 UsersIndex.defaultProps = {
   onCustomClick: () => {},
-  users: [],
+  users: []
 };
 
 UsersIndex.testProps = {
   users: [
     {
-      firstName: 'Josh',
+      firstName: "Josh",
       id: 1,
-      lastName: 'Carter',
-      email: 'josh.carter@test.co',
-      archived: false,
+      lastName: "Carter",
+      email: "josh.carter@test.co",
+      archived: false
     },
     {
-      firstName: 'Jamie',
+      firstName: "Jamie",
       id: 2,
-      lastName: 'Smith',
-      email: 'jamie.smith@test.co',
-      archived: true,
-    },
-  ],
+      lastName: "Smith",
+      email: "jamie.smith@test.co",
+      archived: true
+    }
+  ]
 };
 
 export default UsersIndex;
