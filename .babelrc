@@ -5,7 +5,7 @@
     "@babel/plugin-syntax-dynamic-import",
     "dynamic-import-webpack"
   ],
-  "presets": [["@babel/env", { "modules": "commonjs" }], "@babel/preset-react"]
+  "presets": ["@babel/env", "@babel/preset-react"]
 }
 
 // ["@babel/env", { "modules": "commonjs" }]

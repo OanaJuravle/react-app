@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Grid, Input, Table } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { generateTests } from "react-unit-test-generator";
 
 class UsersIndex extends Component {
   renderTable() {
@@ -36,13 +35,9 @@ class UsersIndex extends Component {
     );
   }
   render() {
-    generateTests();
     return (
       <div>
-        <h3>Users</h3>
-        <Button data-testid="custom-click" onClick={this.props.onCustomClick}>
-          Custom Click
-        </Button>
+        <h2>Users</h2>
         <Grid>
           <Grid.Row>
             <Grid.Column width={8}>
@@ -55,9 +50,6 @@ class UsersIndex extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <a data-testid="test-test" href="/test">
-          TEST TEST
-        </a>
         {this.renderTable()}
       </div>
     );

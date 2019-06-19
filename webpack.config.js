@@ -1,20 +1,17 @@
 const path = require("path");
 const webpack = require("webpack");
-const nodeExternals = require("webpack-node-externals");
-
 module.exports = {
   entry: path.resolve(__dirname, "./src"),
   mode: "development",
-  target: "node",
-  // node: { fs: "empty" },
-  externals: [nodeExternals()],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        options: {
+          presets: ["@babel/env"]
+        }
       },
       {
         test: /\.css$/,

@@ -1,12 +1,12 @@
-import UsersIndex from './UsersIndex';
-import { connect } from 'react-redux';
-import { users } from '../data';
+import UsersIndex from "./UsersIndex";
+import { connect } from "react-redux";
+import { users } from "../data";
 
 function mapDispatchToProps() {
   return {
     onCustomClick: e => {
-      console.log('FROM PARENT', e);
-    },
+      console.log("FROM PARENT", e);
+    }
   };
 }
 
@@ -16,5 +16,5 @@ function mapStateToProps() {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(UsersIndex);
