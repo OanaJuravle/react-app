@@ -1,4 +1,5 @@
 import UsersIndex from "./UsersIndex";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { users } from "../data";
 
@@ -14,7 +15,9 @@ function mapStateToProps() {
   return { users };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UsersIndex);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(UsersIndex)
+);

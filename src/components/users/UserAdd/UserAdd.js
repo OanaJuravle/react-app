@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import UserForm from '../components/UserForm';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import UserForm from "../components/UserForm";
 
 class UserAdd extends Component {
   render() {

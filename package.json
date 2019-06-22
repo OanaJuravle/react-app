@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode development",
-    "generate-tests": "react-unit-test-generator --config=test-generator.config.js",
+    "generate-tests": "node node_modules/react-unit-test-generator --config=test-generator.config.js",
     "start": "webpack-dev-server --mode development",
     "test": "jest --verbose=true --coverage --config=jest.config.json"
   },
@@ -35,7 +35,7 @@
     "node-sass": "^4.12.0",
     "npx": "^10.2.0",
     "path": "^0.12.7",
-    "react-unit-test-generator": "^1.1.0",
+    "react-unit-test-generator": "^1.8.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.33.0",
@@ -54,6 +54,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-react": "^0.87.1",
+    "styled-components": "^4.3.2"
   }
 }

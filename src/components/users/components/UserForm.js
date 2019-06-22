@@ -1,8 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Button, Checkbox, Form, Input, Grid, GridRow } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { isEqual } from 'lodash';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Grid,
+  Message
+} from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { isEqual } from "lodash";
 
 class UserForm extends Component {
   constructor(props) {
@@ -10,23 +17,31 @@ class UserForm extends Component {
     this.state = {
       formInitialized: false,
       currentUser: {},
-      firstName: '',
-      lastName: '',
-      email: '',
-      hobby: '',
+      firstName: "",
+      firstNameError: false,
+      lastName: "",
+      lastNameError: false,
+      email: "",
+      emailError: false,
+      hobby: "",
       termsAndConditions: false,
       count: 0,
-      test: '',
+      test: ""
     };
     this.handleCancel = this.handleCancel.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClick1 = this.handleClick1.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.hasValidationErrors = this.hasValidationErrors.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentDidUpdate() {
-    if (!this.state.formInitialized && !isEqual(this.props.currentUser, this.state.currentUser)) {
+    if (
+      !this.state.formInitialized &&
+      !isEqual(this.props.currentUser, this.state.currentUser)
+    ) {
       this.setState({ ...this.props.currentUser, formInitialized: true });
     }
   }
@@ -38,60 +53,96 @@ class UserForm extends Component {
   }
 
   handleChange = (e, { name, value }) => {
-    if (name === 'termsAndConditions') {
+    if (name === "termsAndConditions") {
       this.setState({ [name]: !this.state[name] });
     } else {
-      this.setState({ [name]: value });
+      if (["firstName", "lastName", "email"].indexOf(name)) {
+        this.setState({
+          [name]: value,
+          [`${name}Error`]: !value || value.length === 0
+        });
+      } else {
+        this.setState({
+          [name]: value
+        });
+      }
+    }
+  };
+
+  handleBlur = fieldName => {
+    if (fieldName !== "termsAndConditions") {
+      this.setState({
+        [`${fieldName}Error`]: this.state[fieldName].length === 0
+      });
     }
   };
 
   handleClick() {
     this.setState({
-      count: this.state.count + 1,
+      count: this.state.count + 1
     });
   }
 
   handleClick1() {
     this.setState({
-      test: 'test',
+      test: "test"
     });
   }
 
   handleCancel() {
-    this.props.history.push('/users');
+    this.props.history.push("/users");
+  }
+
+  hasValidationErrors(fieldName) {
+    const { invalidFields } = this.state;
+    return invalidFields.has(fieldName);
   }
 
   handleFormSubmit(event) {
     event.preventDefault();
-    const { firstName, lastName, email, hobby, termsAndConditions } = this.state;
-    console.log('**********SUBMIT', firstName, lastName, email, hobby, termsAndConditions);
-    this.props.history.push('/users');
+    const {
+      firstName,
+      lastName,
+      email,
+      hobby,
+      termsAndConditions
+    } = this.state;
+    console.log(
+      "**********SUBMIT",
+      firstName,
+      lastName,
+      email,
+      hobby,
+      termsAndConditions
+    );
+    this.props.history.push("/users");
   }
 
   render() {
-    const { firstName, lastName, email, hobby, termsAndConditions } = this.state;
+    const {
+      firstName,
+      firstNameError,
+      lastName,
+      lastNameError,
+      email,
+      emailError,
+      invalidFields,
+      hobby,
+      termsAndConditions
+    } = this.state;
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column>
-            <Link to="/users">
-              <Button data-testid="handle-click">Handle Click</Button>
-            </Link>
-          </Grid.Column>
-          <Grid.Column>
-            <Button data-testid="test-button" onClick={this.props.handleFormSubmit}>
-              Click!
-            </Button>
-          </Grid.Column>
           <Grid.Column width={8}>
             <Form onSubmit={this.props.handleFormSubmit} data-testid="sui-form">
               <Form.Input
-                required
                 label="First Name"
                 placeholder="First Name"
                 name="firstName"
                 value={firstName}
                 onChange={this.handleChange}
+                onBlur={() => this.handleBlur("firstName")}
+                error={firstNameError}
                 data-testid="first-name"
               />
               <Form.Input
@@ -101,6 +152,8 @@ class UserForm extends Component {
                 name="lastName"
                 value={lastName}
                 onChange={this.handleChange}
+                onBlur={() => this.handleBlur("lastName")}
+                error={lastNameError}
                 data-testid="last-name"
               />
               <Form.Input
@@ -111,6 +164,8 @@ class UserForm extends Component {
                 name="email"
                 value={email}
                 onChange={this.handleChange}
+                onBlur={() => this.handleBlur("email")}
+                error={emailError}
                 data-testid="email"
               />
               <Form.Input
@@ -128,22 +183,20 @@ class UserForm extends Component {
                 onChange={this.handleChange}
               />
               <div className="buttons">
-                <Button data-testid="submit-button" type="submit">
+                <Button
+                  data-testid="submit-button"
+                  type="submit"
+                  disabled={!firstName || !lastName || !email}
+                >
                   Submit
                 </Button>
                 <Link to="/users">
-                  <Button data-testid="back-to-users">Back to users list</Button>
+                  <Button data-testid="back-to-users">
+                    Back to users list
+                  </Button>
                 </Link>
               </div>
-              <pre>
-                {JSON.stringify({ firstName, lastName, email, hobby, termsAndConditions }, 0, 2)}
-              </pre>
             </Form>
-          </Grid.Column>
-          <Grid.Column>
-            <Button data-testid="test-button1" onClick={this.handleClick1}>
-              Click1!
-            </Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -157,30 +210,30 @@ UserForm.propTypes = {
     email: PropTypes.string,
     firstName: PropTypes.string,
     id: PropTypes.number,
-    lastName: PropTypes.string,
+    lastName: PropTypes.string
   }),
   handleFormSubmit: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func,
-  }),
+    push: PropTypes.func
+  })
 };
 
 UserForm.defaultProps = {
   currentUser: {},
   history: {
-    push: () => {},
-  },
+    push: () => {}
+  }
 };
 
 UserForm.testProps = {
   currentUser: {
-    firstName: 'Josh',
+    firstName: "Josh",
     id: 1,
-    lastName: 'Carter',
-    email: 'josh.carter@test.co',
-    archived: false,
+    lastName: "Carter",
+    email: "josh.carter@test.co",
+    archived: false
   },
-  handleFormSubmit: () => {},
+  handleFormSubmit: () => {}
 };
 
 export default UserForm;

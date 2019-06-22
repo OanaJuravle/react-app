@@ -1,15 +1,15 @@
-import UserAdd from './UserAdd';
-import { connect } from 'react-redux';
+import UserAdd from "./UserAdd";
+import { connect } from "react-redux";
 
 function mapDispatchToProps() {
   return {
-    handleSubmit: submitData => {
-      console.log('SUBMIT!!', submitData);
-    },
+    handleFormSubmit: submitData => {
+      console.log("SUBMIT ON ADD", submitData);
+    }
   };
 }
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(UserAdd);
